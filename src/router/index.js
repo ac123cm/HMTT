@@ -7,9 +7,31 @@ const routes = [
     component: () => import('@/views/Login/Login.vue')
   },
   {
-    path: '/home',
-    name: 'home',
-    component: () => import('@/views/Home/Home.vue')
+    path: '/layout',
+    name: 'layout',
+    component: () => import('@/views/Layout/Layout.vue'),
+    children: [
+      {
+        path: 'home',
+        name: 'home',
+        component: () => import('@/views/Home/Home.vue')
+      },
+      {
+        path: 'mine',
+        name: 'mine',
+        component: () => import('@/views/Mine/Mine.vue')
+      },
+      {
+        path: 'ask',
+        name: 'ask',
+        component: () => import('@/views/Ask/Ask.vue')
+      },
+      {
+        path: 'video',
+        name: 'video',
+        component: () => import('@/views/Video/Video.vue')
+      }
+    ]
   },
   {
     path: '/',

@@ -5,6 +5,8 @@ import store from './store'
 
 // 导入基本全局样式
 import 'normalize.css'
+import '@/style/base.css'
+
 import vant from '@/utils/vant'
 
 createApp(App)

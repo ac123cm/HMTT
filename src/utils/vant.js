@@ -1,4 +1,13 @@
-import { Button, Search, Form, Field, CellGroup, Toast } from 'vant'
+import {
+  Button,
+  Search,
+  Form,
+  Field,
+  CellGroup,
+  Toast,
+  Tabbar,
+  TabbarItem
+} from 'vant'
 
 // export function vant (app) {
 //   app.use(Button)
@@ -14,5 +23,7 @@ export default {
     app.use(Field)
     app.use(CellGroup)
     app.use(Toast)
+    app.use(Tabbar)
+    app.use(TabbarItem)
   }
 }

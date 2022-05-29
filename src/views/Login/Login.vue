@@ -75,7 +75,7 @@ async function login () {
       console.log(res)
       loading.value = false // 关闭加载状态
       Toast.success(res.data.message) // 成功提示
-      router.push('home') // 跳转到首页
+      router.push('/layout/home') // 跳转到首页
       // 储存token到vuex实现响应式
       store.commit('setTokenObj', res.data.data)
     } catch (error) {
