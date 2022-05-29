@@ -6,7 +6,9 @@ import {
   CellGroup,
   Toast,
   Tabbar,
-  TabbarItem
+  TabbarItem,
+  Icon,
+  Cell
 } from 'vant'
 
 // export function vant (app) {
@@ -25,5 +27,7 @@ export default {
     app.use(Toast)
     app.use(Tabbar)
     app.use(TabbarItem)
+    app.use(Icon)
+    app.use(Cell)
   }
 }
