@@ -1,7 +1,12 @@
 <template>
   <router-view></router-view>
   <!-- 标签栏 -->
-  <van-tabbar v-model="active">
+  <van-tabbar
+    v-model="active"
+    active-color="#fe3142"
+    inactive-color="#000"
+    v-if="!$route.meta.notTabbar"
+  >
     <van-tabbar-item to="/layout/home" icon="home-o">首页</van-tabbar-item>
     <van-tabbar-item to="/layout/ask" icon="search">问答</van-tabbar-item>
     <van-tabbar-item to="/layout/video" icon="friends-o">视频</van-tabbar-item>

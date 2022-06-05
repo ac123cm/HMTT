@@ -2,11 +2,11 @@
   <!-- 用户 -->
   <div class="top">
     <div class="photo">
-      <img src="" alt="" />
+      <img :src="user.photo" alt="" />
     </div>
     <div class="info">
-      <p class="name">用户名</p>
-      <p class="time">2022-06-03</p>
+      <p class="name">{{ user.name }}</p>
+      <p class="time">{{ user.birthday }}</p>
     </div>
   </div>
   <!-- 中间 -->
@@ -27,15 +27,26 @@
   <!-- 底部 -->
   <div class="bottom">
     <van-cell-group>
-      <van-cell is-link icon="edit" title="编辑资料" @click="goEdit" />
+      <van-cell is-link icon="edit" title="编辑资料" to="/layout/edit" />
       <van-cell is-link icon="service-o" title="小智同学" />
       <van-cell is-link icon="setting-o" title="系统设置" />
-      <van-cell is-link icon="manager-o" title="退出登录" @click="logout" />
+      <van-cell is-link icon="manager-o" title="退出登录" />
     </van-cell-group>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+// TODO:编辑资料，vuex
+import { onBeforeMount, ref } from 'vue'
+import { userProfile } from '@/api/user'
+
+const user = ref('')
+
+onBeforeMount(async () => {
+  const res = await userProfile()
+  user.value = res.data.data
+})
+</script>
 
 <style lang="less" scoped>
 .top {
@@ -51,6 +62,7 @@
       height: 80px;
       object-fit: cover;
       border-radius: 50%;
+      background-color: #ccc;
     }
   }
   .info {

@@ -29,11 +29,10 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
-import store from '@/store'
-import router from '@/router'
-
 import { authorizations } from '@/api/user'
 import { Toast } from 'vant'
+import { useRoute, useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 const tel = ref('18612345678') // 用户信息
 const password = ref('246810')
@@ -62,6 +61,9 @@ const rules = reactive({
 
 // 声明一个ref来存放该元素的引用
 const form = ref(null)
+const router = useRouter()
+const route = useRoute()
+const store = useStore()
 
 // 全局表单验证
 async function login () {
@@ -72,10 +74,10 @@ async function login () {
         mobile: tel.value,
         code: password.value
       })
-      console.log(res)
+      // console.log(res)
       loading.value = false // 关闭加载状态
       Toast.success(res.data.message) // 成功提示
-      router.push('/layout/home') // 跳转到首页
+      router.push(route.query.back || '/layout/home') // 跳转到首页
       // 储存token到vuex实现响应式
       store.commit('setTokenObj', res.data.data)
     } catch (error) {

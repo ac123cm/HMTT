@@ -8,7 +8,11 @@ import {
   Tabbar,
   TabbarItem,
   Icon,
-  Cell
+  Cell,
+  NavBar,
+  Tab,
+  Tabs,
+  List
 } from 'vant'
 
 // export function vant (app) {
@@ -29,5 +33,9 @@ export default {
     app.use(TabbarItem)
     app.use(Icon)
     app.use(Cell)
+    app.use(NavBar)
+    app.use(Tab)
+    app.use(Tabs)
+    app.use(List)
   }
 }

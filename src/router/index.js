@@ -1,3 +1,4 @@
+import store from '@/store'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
@@ -19,7 +20,10 @@ const routes = [
       {
         path: 'mine',
         name: 'mine',
-        component: () => import('@/views/Mine/Mine.vue')
+        component: () => import('@/views/Mine/Mine.vue'),
+        meta: {
+          isLogin: true
+        }
       },
       {
         path: 'ask',
@@ -30,6 +34,14 @@ const routes = [
         path: 'video',
         name: 'video',
         component: () => import('@/views/Video/Video.vue')
+      },
+      {
+        path: 'edit',
+        name: 'edit',
+        component: () => import('@/views/Mine/components/Edit.vue'),
+        meta: {
+          notTabbar: true
+        }
       }
     ]
   },
@@ -42,6 +54,18 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.isLogin) {
+    if (store.state.tokenObj.token) {
+      next()
+    } else {
+      router.push('/login?back=' + to.fullPath)
+    }
+  } else {
+    next()
+  }
 })
 
 export default router

@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import { setToken, getToken } from '@/utils/auth'
+import router from '@/router'
 
 export default createStore({
   state: {
@@ -12,6 +13,11 @@ export default createStore({
       // vuex数据持久化
       // localStorage.setItem('token', JSON.stringify(payload)) // 手动设置
       setToken(payload)
+    },
+    // 登出
+    logout (state) {
+      state.tokenObj.token = ''
+      router.push('/login?back=' + location.href.split('#')[1])
     }
   },
   actions: {},
