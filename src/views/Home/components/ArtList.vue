@@ -1,44 +1,59 @@
 <template>
   <div class="art-list">
-    <van-list
-      v-model:loading="loading"
-      :finished="finished"
-      finished-text="没有更多了"
-      @load="onLoad"
+    <van-pull-refresh
+      v-model="isLoading"
+      success-text="刷新成功"
+      @refresh="onRefresh"
     >
-      <!-- 新闻列表 -->
-      <div class="item" v-for="item in artList" :key="item.art_id">
-        <div class="title">{{ item.title }}</div>
-        <!-- 图片 -->
-        <div class="pic">
-          <img
-            :src="i"
-            alt=""
-            v-for="(i, index) in item.cover.images"
-            :key="index"
-            :style="{ width: (1 / item.cover.images.length) * 100 + '%' }"
-          />
+      <van-list
+        v-model:loading="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="onLoad"
+        v-if="bol"
+      >
+        <!-- 新闻列表 -->
+        <div
+          class="item"
+          v-for="item in artList"
+          :key="item.art_id"
+          @click="
+            $router.push({ name: 'article', params: { article_id: item.art_id } })
+          "
+        >
+          <div class="title">{{ item.title }}</div>
+          <!-- 图片 -->
+          <div class="pic">
+            <img
+              :src="i"
+              alt=""
+              v-for="(i, index) in item.cover.images"
+              :key="index"
+              :style="{ width: (1 / item.cover.images.length) * 100 + '%' }"
+            />
+          </div>
+          <div class="other">
+            <span>{{ item.aut_name }}</span>
+            <span>{{ item.comm_count }}评论</span>
+            <span>{{ timeCycle(item.pubdate) }}</span>
+          </div>
         </div>
-        <div class="other">
-          <span>{{ item.aut_name }}</span>
-          <span>{{ item.comm_count }}评论</span>
-          <span>{{ timeCycle(item.pubdate) }}</span>
-        </div>
-      </div>
-    </van-list>
+      </van-list>
+    </van-pull-refresh>
   </div>
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
+import { ref, nextTick } from 'vue'
 import { articles } from '@/api/home'
 import moment from 'moment'
 moment.locale('zh-cn')
 
 const props = defineProps(['id'])
+
 const loading = ref(false) // 加载状态
 const finished = ref(false) // 是否加载完成
-const artList = reactive([]) // 文章数组
+const artList = ref([]) // 文章数组
 const timestamp = ref(Date.now()) // 时间戳
 
 async function onLoad () {
@@ -47,7 +62,7 @@ async function onLoad () {
     timestamp: timestamp.value
   })
 
-  artList.push(...res.data.data.results)
+  artList.value.push(...res.data.data.results)
   loading.value = false
 
   if (res.data.data.pre_timestamp === null) {
@@ -60,6 +75,21 @@ async function onLoad () {
 // 时间转换
 function timeCycle (time) {
   return moment(time).fromNow()
+}
+
+const isLoading = ref(false) // 下拉刷新加载
+const bol = ref(true)
+async function onRefresh () {
+  // 还原初始值
+  loading.value = false
+  finished.value = false
+  artList.value = []
+  timestamp.value = Date.now()
+  isLoading.value = false // 下拉刷新加载完成
+
+  bol.value = false
+  await nextTick()
+  bol.value = true
 }
 </script>
 

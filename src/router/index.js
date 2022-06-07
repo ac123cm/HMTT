@@ -46,6 +46,12 @@ const routes = [
     ]
   },
   {
+    path: '/article/:article_id',
+    name: 'article',
+    component: () => import('@/views/Article/Article.vue'),
+    props: true
+  },
+  {
     path: '/',
     redirect: '/login'
   }

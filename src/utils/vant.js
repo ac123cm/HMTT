@@ -12,7 +12,10 @@ import {
   NavBar,
   Tab,
   Tabs,
-  List
+  List,
+  PullRefresh,
+  Divider,
+  ActionSheet
 } from 'vant'
 
 // export function vant (app) {
@@ -37,5 +40,8 @@ export default {
     app.use(Tab)
     app.use(Tabs)
     app.use(List)
+    app.use(PullRefresh)
+    app.use(Divider)
+    app.use(ActionSheet)
   }
 }

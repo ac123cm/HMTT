@@ -52,7 +52,7 @@ onBeforeMount(async () => {
 .top {
   width: 100%;
   height: 140px;
-  background-color: rgb(59, 153, 246);
+  background-color: #fe3142;
   display: flex;
   align-items: center;
   .photo {
@@ -73,7 +73,7 @@ onBeforeMount(async () => {
     }
     .time {
       background-color: #fff;
-      color: rgb(49, 133, 216);
+      color: #fe3142;
     }
   }
 }

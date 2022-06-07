@@ -19,3 +19,9 @@ export const articles = params => {
     params
   })
 }
+
+export const articlesDetail = (id) => {
+  return request({
+    url: `/v1_0/articles/${id}`
+  })
+}
